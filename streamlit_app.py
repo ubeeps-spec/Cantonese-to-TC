@@ -55,7 +55,13 @@ def transcribe_bytes(model: WhisperModel, data: bytes) -> str:
     return "".join(parts)
 
 st.title("粵語語音轉繁體中文")
-model_size = st.selectbox("模型", ["small", "medium", "large-v3"], index=1)
+col1, col2 = st.columns(2)
+with col1:
+    model_size = st.selectbox("模型", ["small", "medium", "large-v3"], index=1)
+with col2:
+    precise = st.checkbox("精準模式（使用 large-v3）", value=False)
+if precise:
+    model_size = "large-v3"
 uploaded = st.file_uploader("選擇語音檔（可多選）", type=["ogg", "opus", "m4a", "mp3", "wav"], accept_multiple_files=True)
 go = st.button("開始轉換")
 if go and uploaded:
@@ -68,4 +74,4 @@ if go and uploaded:
             texts.append(text_trad)
         except Exception as e:
             texts.append(f"錯誤：{e}")
-    st.text("\n\n".join(texts))
+    st.text_area("結果", "\n\n".join(texts), height=300)
