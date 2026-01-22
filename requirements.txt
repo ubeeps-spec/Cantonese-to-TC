@@ -1,0 +1,9 @@
+streamlit
+faster-whisper==1.2.1
+opencc-python-reimplemented
+av
+numpy
+ctranslate2
+onnxruntime
+huggingface-hub
+tokenizers
